@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf147.pet.dao.ORderMapper">
+  <resultMap id="BaseResultMap" type="com.nf147.pet.entity.ORder">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="petid" jdbcType="INTEGER" property="petid" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="shipDate" jdbcType="VARCHAR" property="shipDate" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from o_rder
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nf147.pet.entity.ORder">
+    insert into o_rder (id, petid, userid, 
+      quantity, shipDate, status
+      )
+    values (#{id,jdbcType=INTEGER}, #{petid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{quantity,jdbcType=INTEGER}, #{shipDate,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.nf147.pet.entity.ORder">
+    update o_rder
+    set petid = #{petid,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      quantity = #{quantity,jdbcType=INTEGER},
+      shipDate = #{shipDate,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, petid, userid, quantity, shipDate, status
+    from o_rder
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, petid, userid, quantity, shipDate, status
+    from o_rder
+  </select>
+</mapper>
