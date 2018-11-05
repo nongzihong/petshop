@@ -9,6 +9,16 @@ public class Pet {
 
     private String photoUrls;
 
+    private String price;
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     private String tags;
 
     private String status;
@@ -59,5 +69,18 @@ public class Pet {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "pid=" + pid +
+                ", cid=" + cid +
+                ", name='" + name + '\'' +
+                ", photoUrls='" + photoUrls + '\'' +
+                ", price='" + price + '\'' +
+                ", tags='" + tags + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

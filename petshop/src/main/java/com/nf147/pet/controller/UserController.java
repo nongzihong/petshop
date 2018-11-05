@@ -25,15 +25,36 @@ public class UserController {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String User(Model model,User user){
-        List<User> getUser= userMapper.selectAll();
-        for (int i = 0; i < getUser.size(); i++) {
-            if(getUser.get(i).getUsername().equals(user.getUsername())&&getUser.get(i).getPassword().equals(user.getPassword())){
-                return "redirect:/pet";
-            }
-            break;
-        }
-        return "login";
+    @RequestMapping(value = "/reg",method = RequestMethod.GET)
+    public String reg(Model model){
+        return "register";
     }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String User(Model model,String username,String password){
+        User user=userMapper.user(username);
+        if (user!=null){
+            if(!password.equals(user.getPassword())){
+                model.addAttribute("err","密码错误");
+                return "login";
+            }
+        }else
+        {
+            model.addAttribute("err","用户不存在");
+            return "login";
+        }
+        return "redirect:/pet";
+    }
+
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    public String add(User user,Model model){
+        int count=userMapper.insert(user);
+        if(count>0){
+            model.addAttribute("reg","注册成功");
+            return "login";
+        }
+        return "register";
+    }
+
+
 }
